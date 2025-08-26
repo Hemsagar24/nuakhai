@@ -1,7 +1,6 @@
 // Google Sheets API configuration
 const SHEET_ID = '1VuxB1QHP4yKCHcefYVGWHnczekJ23ys_Xt-XkB61bfM';
-const SHEET_NAME = 'Form_Responses'; // Update this if your sheet name is different
-const API_KEY = 'YOUR_API_KEY'; // You'll need to get this from Google Cloud
+const GID = '1157074278';
 
 // Base configuration for the timeline
 const timelineConfig = [
@@ -45,7 +44,6 @@ const timelineConfig = [
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize everything
     await initializePage();
 });
 
@@ -190,28 +188,27 @@ let registrationData = [];
 
 async function fetchRegistrationData() {
     try {
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Failed to fetch data from Google Sheets');
+        if (!response.ok) throw new Error('Failed to fetch data from Google Sheets. Check Sheet ID, GID, and share permissions.');
         const csvText = await response.text();
         const data = parseCSV(csvText);
         const rows = data.slice(1);
         registrationData = rows.map(row => ({
-            name: row[1] || '',
-            phone: row[2] || '',
-            adults: parseInt(row[3]) || 0,
-            kids_5_10: parseInt(row[4]) || 0,
-            kids_under_5: parseInt(row[5]) || 0,
-            location: row[6] || '',
-            transport: row[7] || '',
-            cultural: row[8] || ''
+            name: row[2] || '',
+            phone: row[3] || '',
+            adults: parseInt(row[4]) || 0,
+            kids_5_10: parseInt(row[5]) || 0,
+            kids_under_5: parseInt(row[6]) || 0,
+            location: row[7] || '',
+            transport: row[8] || '',
+            cultural: row[9] || ''
         }));
-    } catch (error) {
-        console.error('Error fetching registration data:', error);
-        registrationData = generateMockData();
-    } finally {
         updateRegistrationTable();
         updateStats();
+    } catch (error) {
+        console.error('Error fetching registration data:', error);
+        showErrorMessage(error.message);
     }
 }
 
@@ -219,12 +216,19 @@ function parseCSV(csvText) {
     return csvText.split('\n').map(line => line.split(',').map(cell => cell.trim().replace(/^"|"$/g, '')));
 }
 
-function generateMockData() {
-    return [
-        { name: 'Rajesh Kumar', phone: '9876543210', adults: 2, kids_5_10: 1, kids_under_5: 0, location: 'Marathahalli', transport: 'Car', cultural: 'Singing' },
-        { name: 'Priya Sharma', phone: '9876543211', adults: 3, kids_5_10: 2, kids_under_5: 1, location: 'Whitefield', transport: 'Car', cultural: 'Dancing' },
-        { name: 'Amit Patel', phone: '9876543212', adults: 4, kids_5_10: 0, kids_under_5: 0, location: 'Koramangala', transport: 'Bike', cultural: 'Backstage support' },
-    ];
+function showErrorMessage(message) {
+    const tableBody = document.getElementById('registrationData');
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="9" class="loading" style="color: #e74c3c;">
+                <i class="fas fa-exclamation-triangle"></i> 
+                ${message}
+            </td>
+        </tr>
+    `;
+    document.getElementById('total-families').textContent = '0';
+    document.getElementById('total-adults').textContent = '0';
+    document.getElementById('total-kids').textContent = '0';
 }
 
 function updateRegistrationTable() {

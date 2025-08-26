@@ -6,7 +6,7 @@ A modern, responsive website for the Aghria Nuakhai Bhetghat 2025 celebration in
 
 - **Date:** September 14, 2025 (Sunday)
 - **Time:** 9:00 AM onwards  
-- **Venue:** Backyard by FHC, Nirmala Farm, Nimbekaipura, Bengaluru 560049
+- **Venue:** Backyard by FHC, Budigere Cross, Bengaluru 560049
 - **Map:** [Get Directions](https://maps.app.goo.gl/KQAdKDqnDHQ5Ctdg9)
 
 ## 🌟 Features
