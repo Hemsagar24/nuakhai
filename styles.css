@@ -894,6 +894,14 @@ td {
     color: #666;
 }
 
+.payment-done {
+    text-align: center;
+}
+
+.payment-done .fa-check-circle {
+    color: green;
+}
+
 /* Contact Section */
 .contact-content {
     display: grid;

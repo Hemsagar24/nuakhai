@@ -55,7 +55,7 @@ async function fetchRegistrationData() {
             location: row[7] || '',
             transport: row[8] || '',
             cultural: row[9] || '',
-            payment: row[10] || ''
+            payment: row[11] || ''
         }));
         updateRegistrationTable();
         updateStats();
@@ -66,7 +66,31 @@ async function fetchRegistrationData() {
 }
 
 function parseCSV(csvText) {
-    return csvText.split('\n').map(line => line.split(',').map(cell => cell.trim().replace(/^"|"$/g, '')));
+    const lines = csvText.trim().split(/\r?\n/);
+    return lines.map(line => {
+        if (!line) return [];
+        const row = [];
+        let cell = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') {
+                if (inQuotes && line[i + 1] === '"') {
+                    cell += '"';
+                    i++;
+                } else {
+                    inQuotes = !inQuotes;
+                }
+            } else if (char === ',' && !inQuotes) {
+                row.push(cell);
+                cell = '';
+            } else {
+                cell += char;
+            }
+        }
+        row.push(cell);
+        return row.map(c => c.trim().replace(/^"|"$/g, ''));
+    });
 }
 
 function showErrorMessage(message) {
@@ -93,9 +117,13 @@ function updateRegistrationTable() {
         return;
     }
     tableBody.innerHTML = filteredData.map((row, index) => {
-        const paymentCell = row.payment && row.payment.toLowerCase().trim() === 'done'
-            ? '<td style="text-align: center;"><i class="fas fa-check-circle" style="color: green;"></i></td>'
+        const paymentCell = row.payment && row.payment.trim().toLowerCase() === 'done'
+            ? '<td class="payment-done"><i class="fas fa-check-circle"></i></td>'
             : '<td></td>';
+
+        const culturalPrograms = row.cultural
+            ? row.cultural.split(',').map(program => `<span class="cultural-tag">${program.trim()}</span>`).join(',&nbsp;')
+            : '';
 
         return `
             <tr>
@@ -107,7 +135,7 @@ function updateRegistrationTable() {
                 <td>${row.kids_under_5}</td>
                 <td>${row.location}</td>
                 <td>${row.transport}</td>
-                <td>${row.cultural}</td>
+                <td class="cultural-cell">${culturalPrograms}</td>
                 ${paymentCell}
             </tr>`;
     }).join('');
