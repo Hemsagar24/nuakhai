@@ -581,8 +581,8 @@ section {
 }
 
 .timeline-photo {
-    width: 120px;
-    height: 80px;
+    width: 180px;
+    height: 120px;
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
@@ -620,8 +620,8 @@ section {
     color: #666;
     border: 1px solid #e9ecef;
     transition: background 0.3s ease;
-    width: 120px;
-    height: 80px;
+    width: 180px;
+    height: 120px;
     text-align: center;
     flex-direction: column;
 }
@@ -1128,8 +1128,8 @@ td {
     
     .timeline-photo,
     .timeline-photo-placeholder {
-        width: 100px;
-        height: 70px;
+        width: 140px;
+        height: 98px;
     }
 
     .table-header {
