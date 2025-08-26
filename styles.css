@@ -782,14 +782,14 @@ section {
 
 .registration-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     margin-bottom: 3rem;
 }
 
 .stat-card {
     background: var(--white);
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     text-align: center;
@@ -800,6 +800,11 @@ section {
 .stat-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:nth-child(1),
+.stat-card:nth-child(2) {
+    grid-column: span 2;
 }
 
 .stat-card i {
@@ -989,6 +994,15 @@ td {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .registration-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-card:nth-child(1),
+    .stat-card:nth-child(2) {
+        grid-column: span 1;
+    }
+
     .nav-menu {
         position: fixed;
         left: -100%;
@@ -1126,6 +1140,10 @@ td {
 }
 
 @media (max-width: 480px) {
+    .registration-stats {
+        grid-template-columns: 1fr;
+    }
+
     .hero-title {
         font-size: 2rem;
     }

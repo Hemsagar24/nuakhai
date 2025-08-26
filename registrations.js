@@ -107,6 +107,8 @@ function showErrorMessage(message) {
     document.getElementById('total-adults').textContent = '0';
     document.getElementById('total-kids-5-10').textContent = '0';
     document.getElementById('total-kids-under-5').textContent = '0';
+    document.getElementById('total-collection').textContent = '₹0';
+    document.getElementById('unpaid-families').textContent = '0';
 }
 
 function updateRegistrationTable() {
@@ -155,10 +157,28 @@ function updateStats() {
     const totalAdults = registrationData.reduce((sum, row) => sum + (row.adults || 0), 0);
     const totalKids5to10 = registrationData.reduce((sum, row) => sum + (row.kids_5_10 || 0), 0);
     const totalKidsUnder5 = registrationData.reduce((sum, row) => sum + (row.kids_under_5 || 0), 0);
+
+    // NOTE: Prices are assumed. Please update if they are different.
+    const adultPrice = 999;
+    const kidPrice = 499;
+
+    const totalCollection = registrationData.reduce((sum, row) => {
+        if (row.payment && row.payment.trim().toLowerCase() === 'done') {
+            const adults = row.adults || 0;
+            const kids = row.kids_5_10 || 0;
+            return sum + (adults * adultPrice) + (kids * kidPrice);
+        }
+        return sum;
+    }, 0);
+
+    const unpaidFamilies = registrationData.filter(row => !row.payment || row.payment.trim().toLowerCase() !== 'done').length;
+
     document.getElementById('total-families').textContent = totalFamilies;
     document.getElementById('total-adults').textContent = totalAdults;
     document.getElementById('total-kids-5-10').textContent = totalKids5to10;
     document.getElementById('total-kids-under-5').textContent = totalKidsUnder5;
+    document.getElementById('total-collection').textContent = `₹${totalCollection.toLocaleString()}`;
+    document.getElementById('unpaid-families').textContent = unpaidFamilies;
 }
 
 document.getElementById('searchInput').addEventListener('input', updateRegistrationTable);
