@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registrations | Aghria Nuakhai Bhetghat 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="password-prompt">
+        <div class="password-box">
+            <h3>Enter Password</h3>
+            <p>This page is protected. Please enter the password to continue.</p>
+            <input type="password" id="password-input" placeholder="Password">
+            <button id="password-submit">Submit</button>
+            <p id="password-error" class="error-message"></p>
+        </div>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
+                        <img src="samleimaa.png" alt="Samleimaa Logo" class="logo-image">
+                        <h2>Aghria Nuakhai 2025</h2>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Registrations Section -->
+        <section id="registrations" class="registrations" style="padding-top: 100px;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Event Registrations</h2>
+                    <p>See who's joining us for the celebration</p>
+                </div>
+                <div class="registration-content">
+                    <div class="registration-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <h3 id="total-families">Loading...</h3>
+                            <p>Families Registered</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-user-friends"></i>
+                            <h3 id="total-adults">Loading...</h3>
+                            <p>Adults</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-child"></i>
+                            <h3 id="total-kids">Loading...</h3>
+                            <p>Children</p>
+                        </div>
+                    </div>
+                    <div class="registration-table">
+                        <div class="table-header">
+                            <h3>Registration List</h3>
+                            <div class="table-controls">
+                                <input type="text" id="searchInput" placeholder="Search by name...">
+                                <button id="refreshBtn" class="btn btn-small">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table id="registrationTable">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Adults</th>
+                                        <th>Kids (5-10)</th>
+                                        <th>Kids (<5)</th>
+                                        <th>Location</th>
+                                        <th>Transport</th>
+                                        <th>Cultural Program</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="registrationData">
+                                    <tr>
+                                        <td colspan="9" class="loading">
+                                            <i class="fas fa-spinner fa-spin"></i> Loading registration data...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Aghria Nuakhai Bhetghat. Made with ❤️ for our community.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="registrations.js"></script>
+</body>
+</html>
