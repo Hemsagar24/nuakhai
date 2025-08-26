@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Added a small delay to ensure the DOM is fully ready
-    setTimeout(initializePage, 100);
+    if (window.location.protocol === 'file:') {
+        showErrorMessage(
+            'This page must be viewed on a web server.',
+            'Opening this HTML file directly in the browser is blocked by security policies. Please use a local server to see the content.'
+        );
+        document.getElementById('refreshBtn').disabled = true;
+        return;
+    }
+    initializePage();
 });
 
 async function initializePage() {
@@ -70,16 +77,14 @@ function parseCSV(csvText) {
     });
 }
 
-function showErrorMessage(message) {
+function showErrorMessage(message, details = '') {
     const tableBody = document.getElementById('registrationData');
     tableBody.innerHTML = `
         <tr>
             <td colspan="10" class="loading" style="color: #e74c3c;">
                 <i class="fas fa-exclamation-triangle"></i> 
                 <strong>Error:</strong> ${message}
-                <p style="font-size: 0.9rem; margin-top: 0.5rem;">
-                    This could be due to an issue with the Google Sheet (check permissions) or your network connection.
-                </p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">${details}</p>
             </td>
         </tr>
     `;
