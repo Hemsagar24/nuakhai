@@ -51,6 +51,16 @@ body {
     align-items: center;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 40px;
+    margin-right: 4px;
+}
+
 .nav-logo h2 {
     background: var(--gradient);
     -webkit-background-clip: text;
