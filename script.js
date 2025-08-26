@@ -2,6 +2,11 @@
 const SHEET_ID = '1VuxB1QHP4yKCHcefYVGWHnczekJ23ys_Xt-XkB61bfM';
 const GID = '1157074278';
 
+// Photo Modal global variables
+let currentPhotoIndex = 0;
+let currentYearPhotos = [];
+let currentYear = '';
+
 // Base configuration for the timeline
 const timelineConfig = [
     {
@@ -109,7 +114,7 @@ function renderTimeline(timelineData) {
 
     timelineContainer.innerHTML = timelineData.map(data => {
         const photosHTML = data.images.map((imageName, index) => `
-            <div class="timeline-photo" data-year="${data.year}" data-index="${index}">
+            <div class="timeline-photo" data-year="${data.year}" data-index="${index}" onclick="openPhotoModal('${data.year}', ${index})">
                 <img src="images/events/${data.year}/${imageName}" alt="Event photo from ${data.year}" loading="lazy">
             </div>`).join('');
 
@@ -123,6 +128,8 @@ function renderTimeline(timelineData) {
                 </div>
             </div>`;
     }).join('');
+    
+    console.log('Timeline rendered with', timelineData.length, 'years');
 }
 
 
@@ -218,17 +225,24 @@ function parseCSV(csvText) {
 
 function showErrorMessage(message) {
     const tableBody = document.getElementById('registrationData');
-    tableBody.innerHTML = `
-        <tr>
-            <td colspan="9" class="loading" style="color: #e74c3c;">
-                <i class="fas fa-exclamation-triangle"></i> 
-                ${message}
-            </td>
-        </tr>
-    `;
-    document.getElementById('total-families').textContent = '0';
-    document.getElementById('total-adults').textContent = '0';
-    document.getElementById('total-kids').textContent = '0';
+    if (tableBody) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" class="loading" style="color: #e74c3c;">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    ${message}
+                </td>
+            </tr>
+        `;
+    }
+    
+    const totalFamilies = document.getElementById('total-families');
+    const totalAdults = document.getElementById('total-adults');
+    const totalKids = document.getElementById('total-kids');
+    
+    if (totalFamilies) totalFamilies.textContent = '0';
+    if (totalAdults) totalAdults.textContent = '0';
+    if (totalKids) totalKids.textContent = '0';
 }
 
 function updateRegistrationTable() {
@@ -245,7 +259,8 @@ function updateRegistrationTable() {
 }
 
 function filterData() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
     return !searchTerm ? registrationData : registrationData.filter(row => 
         (row.name && row.name.toLowerCase().includes(searchTerm)) ||
         (row.phone && row.phone.includes(searchTerm)) ||
@@ -257,19 +272,31 @@ function updateStats() {
     const totalFamilies = registrationData.length;
     const totalAdults = registrationData.reduce((sum, row) => sum + (row.adults || 0), 0);
     const totalKids = registrationData.reduce((sum, row) => sum + (row.kids_5_10 || 0) + (row.kids_under_5 || 0), 0);
-    document.getElementById('total-families').textContent = totalFamilies;
-    document.getElementById('total-adults').textContent = totalAdults;
-    document.getElementById('total-kids').textContent = totalKids;
+    
+    const totalFamiliesEl = document.getElementById('total-families');
+    const totalAdultsEl = document.getElementById('total-adults');
+    const totalKidsEl = document.getElementById('total-kids');
+    
+    if (totalFamiliesEl) totalFamiliesEl.textContent = totalFamilies;
+    if (totalAdultsEl) totalAdultsEl.textContent = totalAdults;
+    if (totalKidsEl) totalKidsEl.textContent = totalKids;
 }
 
-document.getElementById('searchInput').addEventListener('input', updateRegistrationTable);
-document.getElementById('refreshBtn').addEventListener('click', () => {
-    const refreshButton = document.getElementById('refreshBtn');
-    refreshButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
-    fetchRegistrationData().finally(() => {
-        refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+const searchInput = document.getElementById('searchInput');
+const refreshBtn = document.getElementById('refreshBtn');
+
+if (searchInput) {
+    searchInput.addEventListener('input', updateRegistrationTable);
+}
+
+if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+        fetchRegistrationData().finally(() => {
+            refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+        });
     });
-});
+}
 
 // --- Countdown Timer ---
 
@@ -294,9 +321,32 @@ function updateCountdown() {
 
 // --- Photo Modal ---
 
-let currentPhotoIndex = 0;
-let currentYearPhotos = [];
-let currentYear = '';
+// Global function to open photo modal (called by inline onclick)
+function openPhotoModal(year, index) {
+    console.log('Opening photo modal for year:', year, 'index:', index);
+    
+    currentYear = year;
+    currentPhotoIndex = index;
+    
+    // Find the timeline data for this year
+    const yearData = timelineConfig.find(d => d.year === currentYear);
+    currentYearPhotos = yearData ? yearData.images : [];
+    
+    console.log('Year data found:', yearData);
+    console.log('Photos array:', currentYearPhotos);
+    
+    if (currentYearPhotos.length > 0) {
+        const modal = document.getElementById('photoModal');
+        if (window.updateModalImage) {
+            window.updateModalImage();
+        }
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        console.log('Modal opened successfully');
+    } else {
+        console.log('No photos found for this year');
+    }
+}
 
 function initPhotoModal() {
     const modal = document.getElementById('photoModal');
@@ -305,20 +355,20 @@ function initPhotoModal() {
     const prevBtn = document.querySelector('.photo-modal-prev');
     const nextBtn = document.querySelector('.photo-modal-next');
 
-    document.addEventListener('click', (e) => {
-        const photoDiv = e.target.closest('.timeline-photo:not(.timeline-photo-placeholder)');
-        if (photoDiv) {
-            currentYear = photoDiv.getAttribute('data-year');
-            currentPhotoIndex = parseInt(photoDiv.getAttribute('data-index'));
-            const yearData = timelineConfig.find(d => d.year === currentYear);
-            currentYearPhotos = yearData ? yearData.images : [];
-            if (currentYearPhotos.length > 0) {
-                updateModalImage();
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
+    // Function to update modal image
+    function updateModalImage() {
+        if (currentYearPhotos.length > 0 && currentYearPhotos[currentPhotoIndex]) {
+            modalImg.src = `images/events/${currentYear}/${currentYearPhotos[currentPhotoIndex]}`;
+            modalImg.alt = `Event photo from ${currentYear}`;
+            const navVisible = currentYearPhotos.length > 1;
+            prevBtn.style.display = navVisible ? 'block' : 'none';
+            nextBtn.style.display = navVisible ? 'block' : 'none';
+            console.log('Modal image updated:', modalImg.src);
         }
-    });
+    }
+
+    // Make updateModalImage available globally
+    window.updateModalImage = updateModalImage;
 
     const hideModal = () => {
         modal.classList.remove('show');
@@ -331,14 +381,18 @@ function initPhotoModal() {
     const showPreviousPhoto = () => {
         if (currentYearPhotos.length > 1) {
             currentPhotoIndex = (currentPhotoIndex - 1 + currentYearPhotos.length) % currentYearPhotos.length;
-            updateModalImage();
+            if (window.updateModalImage) {
+                window.updateModalImage();
+            }
         }
     };
 
     const showNextPhoto = () => {
         if (currentYearPhotos.length > 1) {
             currentPhotoIndex = (currentPhotoIndex + 1) % currentYearPhotos.length;
-            updateModalImage();
+            if (window.updateModalImage) {
+                window.updateModalImage();
+            }
         }
     };
 
@@ -352,12 +406,4 @@ function initPhotoModal() {
             if (e.key === 'ArrowRight') showNextPhoto();
         }
     });
-
-    function updateModalImage() {
-        modalImg.src = `images/events/${currentYear}/${currentYearPhotos[currentPhotoIndex]}`;
-        modalImg.alt = `Event photo from ${currentYear}`;
-        const navVisible = currentYearPhotos.length > 1;
-        prevBtn.style.display = navVisible ? 'block' : 'none';
-        nextBtn.style.display = navVisible ? 'block' : 'none';
-    }
 }
