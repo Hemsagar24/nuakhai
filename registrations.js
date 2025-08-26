@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordSubmit = document.getElementById('password-submit');
     const passwordError = document.getElementById('password-error');
 
-    const correctPassword = 'Hello12345';
+    const correctPassword = '00000';
 
     function checkPassword() {
         if (passwordInput.value === correctPassword) {
