@@ -1,4 +1,4 @@
-# Aghria Nuakhai Bhetghat v3.0 2025 - Website
+# Aghria Nuakhai Bhetghat v3.0 Bangalore 2025 - Website
 
 A modern, responsive website for the Aghria Nuakhai Bhetghat 2025 celebration in Bangalore.
 
