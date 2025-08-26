@@ -1,6 +1,6 @@
-# Agharia Nuakhai Bhetghat v3.0 2025 - Website
+# Aghria Nuakhai Bhetghat v3.0 2025 - Website
 
-A modern, responsive website for the Agharia Nuakhai Bhetghat 2025 celebration in Bangalore.
+A modern, responsive website for the Aghria Nuakhai Bhetghat 2025 celebration in Bangalore.
 
 ## 🎉 Event Details
 
@@ -22,7 +22,7 @@ A modern, responsive website for the Agharia Nuakhai Bhetghat 2025 celebration i
 ## 📁 Project Structure
 
 ```
-Agharia_Nuakhai_2025/
+Aghria_Nuakhai_2025/
 ├── index.html          # Main website file
 ├── styles.css          # CSS styling and responsive design
 ├── script.js           # JavaScript functionality and Google Sheets integration
@@ -141,7 +141,7 @@ To contribute to this project:
 
 ## 📄 License
 
-This project is created for the Agharia community in Bangalore. Feel free to use and modify for similar community events.
+This project is created for the Aghria community in Bangalore. Feel free to use and modify for similar community events.
 
 ## 🆘 Support
 
@@ -149,4 +149,4 @@ For technical support or questions about the website, please contact the event o
 
 ---
 
-**Made with ❤️ for the Agharia Nuakhai Bhetghat 2025 community**
+**Made with ❤️ for the Aghria Nuakhai Bhetghat 2025 community**

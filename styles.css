@@ -581,20 +581,24 @@ section {
 }
 
 .timeline-photo {
-    width: 180px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid #e9ecef;
     position: relative;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .timeline-photo img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.3s ease;
 }
 
@@ -620,8 +624,8 @@ section {
     color: #666;
     border: 1px solid #e9ecef;
     transition: background 0.3s ease;
-    width: 180px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     text-align: center;
     flex-direction: column;
 }
@@ -1128,8 +1132,8 @@ td {
     
     .timeline-photo,
     .timeline-photo-placeholder {
-        width: 140px;
-        height: 98px;
+        width: 120px;
+        height: 120px;
     }
 
     .table-header {
@@ -1235,6 +1239,12 @@ td {
 
     .countdown-text {
         font-size: 1rem;
+    }
+
+    .timeline-photo,
+    .timeline-photo-placeholder {
+        width: 100px;
+        height: 100px;
     }
 }
 

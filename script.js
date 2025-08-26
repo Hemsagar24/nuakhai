@@ -38,7 +38,7 @@ const timelineConfig = [
     {
         year: '2019',
         icon: 'fa-seedling',
-        description: 'The beginning of our annual tradition in Bangalore. First organized Agharia Nuakhai celebration that started it all.',
+        description: 'The beginning of our annual tradition in Bangalore. First organized Aghria Nuakhai celebration that started it all.',
         images: []
     }
 ];

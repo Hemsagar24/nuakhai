@@ -90,7 +90,7 @@ function createYearTimeline(year, images) {
         '2023': 'Post-pandemic reunion brought tears of joy. Traditional rituals resumed with great enthusiasm.',
         '2022': 'Virtual celebration during pandemic. Online cultural programs kept our community connected.',
         '2021': 'Limited gathering following safety protocols. Smaller but heartfelt celebration.',
-        '2020': 'Foundation year that brought Agharia families together in Bangalore.'
+        '2020': 'Foundation year that brought Aghria families together in Bangalore.'
     };
     
     let photosHTML = '';
