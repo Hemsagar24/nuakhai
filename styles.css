@@ -586,26 +586,23 @@ section {
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid #e9ecef;
+    transition: transform 0.3s ease;
     position: relative;
     background: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
+    box-shadow: none;
 }
 
 .timeline-photo img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     transition: transform 0.3s ease;
 }
 
 .timeline-photo:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: var(--primary-color);
+    box-shadow: none;
 }
 
 .timeline-photo:hover img {
@@ -622,7 +619,6 @@ section {
     gap: 0.5rem;
     font-size: 0.9rem;
     color: #666;
-    border: 1px solid #e9ecef;
     transition: background 0.3s ease;
     width: 150px;
     height: 150px;
@@ -668,7 +664,7 @@ section {
     width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+    box-shadow: none;
 }
 
 .photo-modal-close {
