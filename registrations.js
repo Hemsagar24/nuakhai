@@ -54,7 +54,8 @@ async function fetchRegistrationData() {
             kids_under_5: parseInt(row[6]) || 0,
             location: row[7] || '',
             transport: row[8] || '',
-            cultural: row[9] || ''
+            cultural: row[9] || '',
+            payment: row[10] || ''
         }));
         updateRegistrationTable();
         updateStats();
@@ -72,7 +73,7 @@ function showErrorMessage(message) {
     const tableBody = document.getElementById('registrationData');
     tableBody.innerHTML = `
         <tr>
-            <td colspan="9" class="loading" style="color: #e74c3c;">
+            <td colspan="10" class="loading" style="color: #e74c3c;">
                 <i class="fas fa-exclamation-triangle"></i> 
                 ${message}
             </td>
@@ -88,13 +89,28 @@ function updateRegistrationTable() {
     const tableBody = document.getElementById('registrationData');
     const filteredData = filterData();
     if (filteredData.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="9" class="loading">No registrations found</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="10" class="loading">No registrations found</td></tr>';
         return;
     }
-    tableBody.innerHTML = filteredData.map((row, index) => `
-        <tr>
-            <td>${index + 1}</td><td>${row.name}</td><td>${row.phone}</td><td>${row.adults}</td><td>${row.kids_5_10}</td><td>${row.kids_under_5}</td><td>${row.location}</td><td>${row.transport}</td><td>${row.cultural}</td>
-        </tr>`).join('');
+    tableBody.innerHTML = filteredData.map((row, index) => {
+        const paymentCell = row.payment && row.payment.toLowerCase().trim() === 'done'
+            ? '<td style="text-align: center;"><i class="fas fa-check-circle" style="color: green;"></i></td>'
+            : '<td></td>';
+
+        return `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${row.name}</td>
+                <td>${row.phone}</td>
+                <td>${row.adults}</td>
+                <td>${row.kids_5_10}</td>
+                <td>${row.kids_under_5}</td>
+                <td>${row.location}</td>
+                <td>${row.transport}</td>
+                <td>${row.cultural}</td>
+                ${paymentCell}
+            </tr>`;
+    }).join('');
 }
 
 function filterData() {
