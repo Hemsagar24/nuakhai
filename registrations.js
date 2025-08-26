@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordSubmit = document.getElementById('password-submit');
     const passwordError = document.getElementById('password-error');
 
-    const correctPassword = '00000';
+    const correctPassword = '0000';
 
     function checkPassword() {
         if (passwordInput.value === correctPassword) {
@@ -80,7 +80,8 @@ function showErrorMessage(message) {
     `;
     document.getElementById('total-families').textContent = '0';
     document.getElementById('total-adults').textContent = '0';
-    document.getElementById('total-kids').textContent = '0';
+    document.getElementById('total-kids-5-10').textContent = '0';
+    document.getElementById('total-kids-under-5').textContent = '0';
 }
 
 function updateRegistrationTable() {
@@ -108,10 +109,12 @@ function filterData() {
 function updateStats() {
     const totalFamilies = registrationData.length;
     const totalAdults = registrationData.reduce((sum, row) => sum + (row.adults || 0), 0);
-    const totalKids = registrationData.reduce((sum, row) => sum + (row.kids_5_10 || 0) + (row.kids_under_5 || 0), 0);
+    const totalKids5to10 = registrationData.reduce((sum, row) => sum + (row.kids_5_10 || 0), 0);
+    const totalKidsUnder5 = registrationData.reduce((sum, row) => sum + (row.kids_under_5 || 0), 0);
     document.getElementById('total-families').textContent = totalFamilies;
     document.getElementById('total-adults').textContent = totalAdults;
-    document.getElementById('total-kids').textContent = totalKids;
+    document.getElementById('total-kids-5-10').textContent = totalKids5to10;
+    document.getElementById('total-kids-under-5').textContent = totalKidsUnder5;
 }
 
 document.getElementById('searchInput').addEventListener('input', updateRegistrationTable);
