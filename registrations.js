@@ -1,29 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const passwordPrompt = document.getElementById('password-prompt');
-    const mainContent = document.getElementById('main-content');
-    const passwordInput = document.getElementById('password-input');
-    const passwordSubmit = document.getElementById('password-submit');
-    const passwordError = document.getElementById('password-error');
-
-    const correctPassword = '0000';
-
-    function checkPassword() {
-        if (passwordInput.value === correctPassword) {
-            passwordPrompt.style.display = 'none';
-            mainContent.style.display = 'block';
-            initializePage();
-        } else {
-            passwordError.textContent = 'Incorrect password. Please try again.';
-            passwordInput.focus();
-        }
-    }
-
-    passwordSubmit.addEventListener('click', checkPassword);
-    passwordInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
-            checkPassword();
-        }
-    });
+    // Added a small delay to ensure the DOM is fully ready
+    setTimeout(initializePage, 100);
 });
 
 async function initializePage() {
@@ -99,16 +76,19 @@ function showErrorMessage(message) {
         <tr>
             <td colspan="10" class="loading" style="color: #e74c3c;">
                 <i class="fas fa-exclamation-triangle"></i> 
-                ${message}
+                <strong>Error:</strong> ${message}
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+                    This could be due to an issue with the Google Sheet (check permissions) or your network connection.
+                </p>
             </td>
         </tr>
     `;
-    document.getElementById('total-families').textContent = '0';
-    document.getElementById('total-adults').textContent = '0';
-    document.getElementById('total-kids-5-10').textContent = '0';
-    document.getElementById('total-kids-under-5').textContent = '0';
-    document.getElementById('total-collection').textContent = '₹0';
-    document.getElementById('unpaid-families').textContent = '0';
+    document.getElementById('total-families').textContent = 'Error';
+    document.getElementById('total-adults').textContent = 'Error';
+    document.getElementById('total-kids-5-10').textContent = 'Error';
+    document.getElementById('total-kids-under-5').textContent = 'Error';
+    document.getElementById('total-collection').textContent = 'Error';
+    document.getElementById('unpaid-families').textContent = 'Error';
 }
 
 function updateRegistrationTable() {
