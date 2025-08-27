@@ -197,9 +197,11 @@
             const getUrl = 'https://api.counterapi.dev/v2/aghria-nuakhai-workspace/aghria-nuakhai-2025';
 
             try {
-                // First, increment the counter
-                await fetch(upUrl, { method: 'GET' });
-
+                const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+                if (!isLocal) {
+                    // First, increment the counter
+                    await fetch(upUrl, {method: 'GET'});
+                }
                 // Then, get the new value
                 const response = await fetch(getUrl, { method: 'GET' });
                 const data = await response.json();
