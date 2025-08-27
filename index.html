@@ -171,6 +171,11 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Aghria Nuakhai Bhetghat. Made with ❤️ for our community.</p>
+                <div class="website-visits" style="margin-top: 10px; text-align: center;">
+                    <i class="fas fa-eye"></i>
+                    <span>Website Visits: </span>
+                    <span id="website-visits">Loading...</span>
+                </div>
             </div>
         </div>
     </footer>
@@ -186,5 +191,25 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        async function updateCounter() {
+            const upUrl = 'https://api.counterapi.dev/v2/aghria-nuakhai-workspace/aghria-nuakhai-2025/up';
+            const getUrl = 'https://api.counterapi.dev/v2/aghria-nuakhai-workspace/aghria-nuakhai-2025';
+
+            try {
+                // First, increment the counter
+                await fetch(upUrl, { method: 'GET' });
+
+                // Then, get the new value
+                const response = await fetch(getUrl, { method: 'GET' });
+                const data = await response.json();
+                document.getElementById('website-visits').textContent = data.data.up_count;
+            } catch (error) {
+                console.error('Error fetching page views:', error);
+                document.getElementById('website-visits').textContent = 'N/A';
+            }
+        }
+        updateCounter();
+    </script>
 </body>
 </html>
