@@ -8,3 +8,8 @@
 
 # Dependencies (nothing here is used at runtime — the site is plain HTML/CSS/JS)
 node_modules/
+
+# Source footage kept locally for re-encoding, never deployed as-is (huge —
+# e.g. videos/2026-dance.gif is 179MB; the compressed videos/*.mp4 built from
+# it are what's actually tracked and shipped)
+videos/*.gif

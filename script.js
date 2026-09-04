@@ -387,7 +387,6 @@ function initHeroMedia() {
     const slideEls = slides ? $$('.hero-slide', slides) : [];
 
     let slideTimer = null;
-    let switchTimer = null;
     let switchedToPhotos = false;
 
     const startSlideshow = () => {
@@ -400,12 +399,13 @@ function initHeroMedia() {
         }, 1000);
     };
 
-    // The deliberate handoff: video plays first, then after a few seconds
-    // we crossfade over to the photo slideshow for the rest of the visit.
+    // The deliberate handoff: video plays first, in full, then we crossfade
+    // over to the photo slideshow for the rest of the visit. No fixed timer —
+    // this fires on the video's own 'ended' event, so it always plays through
+    // completely regardless of its length or playback rate.
     const switchToPhotos = () => {
         if (switchedToPhotos) return;
         switchedToPhotos = true;
-        clearTimeout(switchTimer);
         if (video) video.classList.remove('is-ready'); // fades out via its own opacity transition
         if (slides) slides.classList.remove('is-hidden'); // fades in via its own opacity transition
         startSlideshow();
@@ -414,7 +414,6 @@ function initHeroMedia() {
     };
 
     const useFallback = () => {
-        clearTimeout(switchTimer);
         if (video) video.style.display = 'none';
         switchToPhotos();
     };
@@ -426,13 +425,13 @@ function initHeroMedia() {
     video.addEventListener('loadeddata', () => {
         video.classList.add('is-ready');
         if (slides) slides.classList.add('is-hidden');
-        // Video plays first; hand off to photos after 3.5s, skipped for
-        // reduced-motion visitors (who'd rather the background stay still).
-        if (!prefersReducedMotion) {
-            clearTimeout(switchTimer);
-            switchTimer = setTimeout(switchToPhotos, 3500);
-        }
     });
+    // Reduced-motion visitors would rather the background stay still, so
+    // skip the handoff for them entirely — the video (now static-looking,
+    // since it's not actually forced to pause) stays as the backdrop.
+    if (!prefersReducedMotion) {
+        video.addEventListener('ended', switchToPhotos);
+    }
     video.addEventListener('error', useFallback);
 
     // Autoplay is blocked in some browsers / on Low Power Mode
