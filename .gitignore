@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor / IDE state
+.idea/
+.vscode/
+
+# Dependencies (nothing here is used at runtime — the site is plain HTML/CSS/JS)
+node_modules/

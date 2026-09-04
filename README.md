@@ -1,152 +1,100 @@
-# Aghria Nuakhai Bhetghat v3.0 Bangalore 2025 - Website
+# Aghria Nuakhai Bhetghat — Bengaluru
 
-A modern, responsive website for the Aghria Nuakhai Bhetghat 2025 celebration in Bangalore.
+Website for the annual Aghria Nuakhai Bhetghat, a community harvest gathering
+of Aghria families in Bengaluru. Plain HTML, CSS and JavaScript — no build
+step, no dependencies, deployable straight to GitHub Pages.
 
-## 🎉 Event Details
-
-- **Date:** September 14, 2025 (Sunday)
-- **Time:** 9:00 AM onwards  
-- **Venue:** Backyard by FHC, Budigere Cross, Bengaluru 560049
-- **Map:** [Get Directions](https://maps.app.goo.gl/KQAdKDqnDHQ5Ctdg9)
-
-## 🌟 Features
-
-- **Responsive Design:** Works perfectly on desktop, tablet, and mobile devices
-- **Registration Integration:** Direct link to Google Forms for event registration
-- **Live Registration Data:** Table displaying real-time registration information from Google Sheets
-- **Event Timeline:** Complete schedule and photo gallery from previous events
-- **Interactive UI:** Smooth animations and modern design elements
-- **Statistics Dashboard:** Live counts of registered families, adults, and children
-- **Event Countdown Timer:** Real-time countdown to the event date
-
-## 📁 Project Structure
-
-```
-Aghria_Nuakhai_2025/
-├── index.html          # Main website file
-├── styles.css          # CSS styling and responsive design
-├── script.js           # JavaScript functionality and Google Sheets integration
-├── README.md           # Project documentation
-└── .github/
-    └── copilot-instructions.md
-```
-
-## 🚀 Setup Instructions
-
-### 1. Basic Setup
-1. Download or clone this project
-2. Open `index.html` in a web browser to view the website
-3. The website is ready to use with mock data
-
-### 2. Google Sheets Integration (Optional)
-
-To connect the website to your actual Google Sheets data:
-
-1. **Get Google Sheets API Key:**
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select existing one
-   - Enable the Google Sheets API
-   - Create credentials (API Key)
-   - Restrict the API key to Google Sheets API
-
-2. **Update the JavaScript:**
-   - Open `script.js`
-   - Replace `YOUR_API_KEY` with your actual API key
-   - Update `SHEET_NAME` if your sheet name is different from 'Form_Responses'
-   - Uncomment the `fetchFromGoogleSheets()` function
-   - Comment out the mock data function
-
-3. **Sheet Permissions:**
-   - Make sure your Google Sheet is publicly viewable or properly shared
-   - The sheet should have the following columns:
-     - Timestamp
-     - Name
-     - Phone Number
-     - Number of Adult (10+ years)
-     - Number of Kids (5 to 10 years)
-     - Number of Kids (below 5 years)
-     - Coming From
-     - How are you commuting
-     - Would like to participate in cultural program
-
-## 🎨 Customization
-
-### Adding Photos
-1. Replace the placeholder images in the Timeline section
-2. Add actual photos from last year's event
-3. Update the `placeholder-img` divs in `index.html`
-
-### Styling Changes
-- Modify colors in `styles.css` by updating the CSS variables in `:root`
-- Change fonts by updating the Google Fonts import
-- Adjust layout by modifying the grid and flexbox properties
-
-### Content Updates
-- Update event details in `index.html`
-- Modify the schedule in the Timeline section
-- Add or remove sections as needed
-
-## 📱 Responsive Design
-
-The website is fully responsive and optimized for:
-- Desktop computers (1200px+)
-- Tablets (768px - 1199px)
-- Mobile phones (up to 767px)
-
-## 🔧 Technical Features
-
-- **CSS Grid & Flexbox:** Modern layout techniques
-- **CSS Variables:** Easy color and styling customization
-- **Intersection Observer:** Smooth scroll animations
-- **Fetch API:** Google Sheets data integration
-- **Local Storage:** Search and filter functionality
-- **Progressive Enhancement:** Works without JavaScript for basic functionality
-
-## 🌐 Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers
-
-## 📞 Registration
-
-The registration button links directly to your Google Form:
-[Registration Form](https://docs.google.com/forms/d/e/1FAIpQLSfqtsVtKRb94bVyvytIDkn-7v0f7uRozrYfo25eC_LeFeCEqw/viewform)
-
-## 🎯 Future Enhancements
-
-- Real-time notifications for new registrations
-- Photo upload feature for community members
-- ✅ **Event countdown timer** (Implemented)
-- Social media integration
-- Multilingual support (English/Odia)
-- PWA (Progressive Web App) capabilities
-
-## 📈 Performance
-
-- Optimized CSS and JavaScript
-- Lazy loading for images
-- Minified assets for production
-- Fast loading times
-
-## 🤝 Contributing
-
-To contribute to this project:
-1. Fork the repository
-2. Make your changes
-3. Test thoroughly on different devices
-4. Submit a pull request
-
-## 📄 License
-
-This project is created for the Aghria community in Bangalore. Feel free to use and modify for similar community events.
-
-## 🆘 Support
-
-For technical support or questions about the website, please contact the event organizers.
+Live: https://hemsagar24.github.io/nuakhai/
 
 ---
 
-**Made with ❤️ for the Aghria Nuakhai Bhetghat 2025 community**
+## Editing the event details
+
+**Everything about the upcoming event lives in one place: the `EVENT` object at
+the top of [`script.js`](script.js).** Nothing else needs to change between years.
+
+```js
+const EVENT = {
+    edition: 'v4.0',
+    year: 2026,
+    startsAt: '2026-09-13T09:00:00+05:30',   // drives the countdown
+    dateLabel: 'September 13, 2026 (Sunday)', // shown to visitors
+    timeLabel: '9:00 AM onwards',
+    dateConfirmed: false,                     // true hides the "tentative" notes
+    venue: { name: '…', area: 'Bengaluru', mapsUrl: '…' },
+    registrationUrl: '',                      // empty ⇒ Register buttons disabled
+    counter: { workspace: '…', name: '…' }    // null ⇒ visit counter removed
+};
+```
+
+### Current placeholders — these need real values
+
+| Field | Status |
+| --- | --- |
+| `startsAt` / `dateLabel` | ⚠️ **Placeholder** (13 Sep 2026, a Sunday). Replace with the confirmed date, then set `dateConfirmed: true`. |
+| `venue.name` / `venue.mapsUrl` | ⚠️ Not announced. Until `mapsUrl` is filled, "Get Directions" renders disabled. |
+| `registrationUrl` | ⚠️ No 2026 form yet. Until it's set, Register buttons read "Registration opens soon" and are disabled. |
+| Contact details | ⚠️ See the `TODO organisers` comment in the Contact section of `index.html`. |
+| Social links | ⚠️ Footer icons point at `#`. Replace the URLs or delete the unused ones. |
+
+### How the countdown behaves
+
+- **Before the event** — live days/hours/minutes/seconds.
+- **On the day** (`startsAt` → `startsAt + 10h`) — switches to "Nuakhai Juhar — it's happening today!".
+- **Afterwards** — switches to a wrap-up message. The site degrades gracefully
+  instead of breaking, so a stale date is no longer a crash.
+
+## Adding photos from a new year
+
+1. Create `images/events/<year>/` and add photos named `image1.jpg`,
+   `image2.jpg`, … in the order you want them shown.
+2. Add (or update) that year's entry in `EVENT_HISTORY` in `script.js`, setting
+   `photos` to how many files you added.
+
+`EVENT_HISTORY` is explicit rather than auto-probing so the page makes no
+wasted network requests. Please also replace the placeholder year descriptions
+with what actually happened — they're intentionally generic right now.
+
+## Registrations page
+
+[`registrations.html`](registrations.html) reads the organisers' Google Sheet as
+CSV (no API key needed) and shows live counts plus a searchable list. The sheet
+ID and GID are at the top of [`registrations.js`](registrations.js); the sheet
+must be shared as "anyone with the link can view".
+
+## Project structure
+
+```
+├── index.html            Main event page
+├── styles.css            All styling for both pages
+├── script.js             EVENT config + all page behaviour
+├── registrations.html    Live registration list
+├── registrations.js      Google Sheets CSV fetch + table/stats
+├── samleimaa.png         Logo, also used as the favicon
+├── videos/               Hero background video
+├── images/
+│   ├── dhan.jpg          Paddy photo used in the About section
+│   └── events/<year>/    Gallery photos per year
+└── public/               Standalone stats page (optional)
+```
+
+## Running locally
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open <http://localhost:8000>. A server is needed rather than opening the
+file directly, because the Google Sheets fetch and the video require `http://`.
+The visit counter deliberately does **not** increment on `localhost`.
+
+## Accessibility & performance notes
+
+- Skip link, real focus styles, keyboard-navigable gallery (arrows + Escape),
+  and `aria-*` state on the mobile menu and dialog.
+- `prefers-reduced-motion` disables the slideshow, reveal animations and
+  scroll smoothing.
+- The hero video falls back to a photo slideshow if it fails or autoplay is blocked.
+- ⚠️ **Known issue:** the gallery JPEGs are 600–900 KB each and are served at
+  full size. Resizing them to ~1600px wide and adding thumbnails would cut
+  several megabytes off the page. Not done yet.

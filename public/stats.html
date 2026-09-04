@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Stats - Aghria Nuakhai Bhetghat 2025</title>
+    <link rel="stylesheet" href="theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="/samleimaa.png" alt="Samleimaa Logo" class="logo-image">
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="/index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/index.html#timeline" class="nav-link">Timeline</a></li>
+                    <li class="nav-item"><a href="stats.html" class="nav-link">Registrations</a></li>
+                    <li class="nav-item"><a href="/index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="registrations" class="content-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Registrations</h2>
+                <p>View live and historical registration data</p>
+            </div>
+
+            <div class="historical-data-controls" style="text-align: center; margin-bottom: 40px;">
+                <input type="date" id="historical-date" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <button id="get-historical-data" class="btn btn-primary" style="margin-left: 10px;">Get Historical Data</button>
+            </div>
+
+            <div class="registration-table" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.1);">
+                <div class="table-header" style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #eee;">
+                    <h3 style="margin: 0;">Registration Data</h3>
+                    <div class="table-controls">
+                        <input type="text" id="searchInput" placeholder="Search..." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <button id="refreshBtn" class="btn" style="margin-left: 10px; background: #eee;"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                </div>
+                <div class="table-container" style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">#</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Name</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Phone</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Adults</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Kids (5-10)</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Kids (Under 5)</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Location</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Transport</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd; background-color: #f8f8f8;">Cultural Program</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrationData">
+                            <tr>
+                                <td colspan="9" class="loading" style="text-align: center; padding: 40px;">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading registration data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <p>Aghria Nuakhai Bhetghat is an annual celebration of our rich heritage and traditions, bringing our community together in Bangalore.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="/index.html">Home</a></p>
+                    <p><a href="stats.html">Registrations</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>For any queries, please get in touch with the event organizers.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Aghria Nuakhai Bhetghat. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

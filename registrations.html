@@ -3,40 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Registrations | Aghria Nuakhai Bhetghat 2025</title>
+    <title>Registrations — Aghria Nuakhai Bhetghat</title>
+    <meta name="description" content="Live registration list for the Aghria Nuakhai Bhetghat in Bengaluru.">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0f0b08">
+    <link rel="icon" href="samleimaa.png">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div id="main-content">
+    <!-- Password gate. This only hides the page from casual visitors — the
+         hash is visible in registrations.js to anyone who opens dev tools,
+         and the Google Sheet URLs it protects are public anyway. It is not
+         real access control, just a soft deterrent. -->
+    <div id="passwordGate" class="password-gate">
+        <form id="passwordForm" class="password-card">
+            <img src="samleimaa.png" alt="" class="nav-mark" width="48" height="48">
+            <h2>Registrations are private</h2>
+            <p>Enter the password shared with the organisers to view this page.</p>
+            <input type="password" id="passwordInput" placeholder="Password" autocomplete="off" autofocus>
+            <button type="submit" class="btn btn-primary">Unlock</button>
+            <p class="password-error" id="passwordError" hidden>Wrong password — try again.</p>
+        </form>
+    </div>
+
+    <div id="main-content" hidden>
         <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
-                        <img src="samleimaa.png" alt="Samleimaa Logo" class="logo-image">
-                        <h2>Aghria Nuakhai 2025</h2>
-                    </a>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="https://docs.google.com/spreadsheets/d/1VuxB1QHP4yKCHcefYVGWHnczekJ23ys_Xt-XkB61bfM/edit?resourcekey=&gid=1157074278#gid=1157074278" target="_blank" class="nav-link">Google Sheet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">Home</a>
-                    </li>
-                </ul>
+        <header class="navbar is-stuck">
+            <div class="nav-inner">
+                <a class="nav-brand" href="index.html">
+                    <img src="samleimaa.png" alt="" class="nav-mark" width="44" height="44">
+                    <span class="nav-brand-text">
+                        <span class="nav-brand-name">Aghria Nuakhai</span>
+                        <span class="nav-brand-sub">Bhetghat &middot; Bengaluru</span>
+                    </span>
+                </a>
+                <nav class="nav-menu" aria-label="Main">
+                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="index.html#memories">Memories</a>
+                    <!-- href/text are set by registrations.js to match whichever year is selected below -->
+                    <a class="nav-link" id="sheetLink" href="#" target="_blank" rel="noopener">Google Sheet</a>
+                    <a class="nav-link nav-link-cta" id="registerLink" href="https://forms.gle/CYctdaxfAxMGBN7L6" target="_blank" rel="noopener">Register</a>
+                </nav>
             </div>
-        </nav>
+        </header>
 
         <!-- Registrations Section -->
-        <section id="registrations" class="registrations" style="padding-top: 100px;">
+        <section id="registrations" class="registrations">
             <div class="container">
                 <div class="section-header">
                     <h2>Event Registrations</h2>
                     <p>See who's joining us for the celebration</p>
                 </div>
+
+                <div class="year-switcher">
+                    <label for="yearSelect">Showing</label>
+                    <select id="yearSelect"></select>
+                </div>
+
                 <div class="registration-content">
                     <div class="registration-stats">
                         <div class="stat-card">
@@ -114,12 +141,14 @@
         <footer class="footer">
             <div class="container">
                 <div class="footer-bottom">
-                    <p>&copy; 2025 Aghria Nuakhai Bhetghat. Made with ❤️ for our community.</p>
+                    <p>&copy; <span id="footer-year">2026</span> Aghria Nuakhai Bhetghat. Made for our community.</p>
+                    <p><a href="index.html">&larr; Back to the event page</a></p>
                 </div>
             </div>
         </footer>
     </div>
 
+    <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
     <script src="registrations.js"></script>
 </body>
 </html>
