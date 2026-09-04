@@ -15,7 +15,7 @@ the top of [`script.js`](script.js).** Nothing else needs to change between year
 
 ```js
 const EVENT = {
-    edition: 'v4.0',
+    edition: 'v3.1',
     year: 2026,
     startsAt: '2026-09-13T09:00:00+05:30',   // drives the countdown
     dateLabel: 'September 13, 2026 (Sunday)', // shown to visitors

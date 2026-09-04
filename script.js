@@ -8,7 +8,7 @@
    1. EVENT CONFIG — this is the only block organisers need to edit.
    ========================================================================== */
 const EVENT = {
-    edition: 'v4.0',
+    edition: 'v3.1',
     year: 2026,
 
     /* `startsAt` drives the countdown. Use ISO 8601 with the +05:30 offset so
@@ -49,7 +49,7 @@ const EVENT = {
 const EVENT_HISTORY = [
     {
         year: 2026,
-        label: 'Bhetghat v4.0',
+        label: 'Bhetghat v3.1',
         icon: 'fa-star',
         upcoming: true,
         photos: 0,
@@ -387,6 +387,9 @@ function initHeroMedia() {
     const slideEls = slides ? $$('.hero-slide', slides) : [];
 
     let slideTimer = null;
+    let switchTimer = null;
+    let switchedToPhotos = false;
+
     const startSlideshow = () => {
         if (slideTimer || slideEls.length < 2 || prefersReducedMotion) return;
         let current = 0;
@@ -397,10 +400,23 @@ function initHeroMedia() {
         }, 1000);
     };
 
-    const useFallback = () => {
-        if (video) video.style.display = 'none';
-        if (slides) slides.classList.remove('is-hidden');
+    // The deliberate handoff: video plays first, then after a few seconds
+    // we crossfade over to the photo slideshow for the rest of the visit.
+    const switchToPhotos = () => {
+        if (switchedToPhotos) return;
+        switchedToPhotos = true;
+        clearTimeout(switchTimer);
+        if (video) video.classList.remove('is-ready'); // fades out via its own opacity transition
+        if (slides) slides.classList.remove('is-hidden'); // fades in via its own opacity transition
         startSlideshow();
+        // Stop decoding a video nobody can see anymore, once its fade-out finishes
+        if (video) setTimeout(() => video.pause(), 850);
+    };
+
+    const useFallback = () => {
+        clearTimeout(switchTimer);
+        if (video) video.style.display = 'none';
+        switchToPhotos();
     };
 
     if (!video) { useFallback(); return; }
@@ -410,6 +426,12 @@ function initHeroMedia() {
     video.addEventListener('loadeddata', () => {
         video.classList.add('is-ready');
         if (slides) slides.classList.add('is-hidden');
+        // Video plays first; hand off to photos after 3.5s, skipped for
+        // reduced-motion visitors (who'd rather the background stay still).
+        if (!prefersReducedMotion) {
+            clearTimeout(switchTimer);
+            switchTimer = setTimeout(switchToPhotos, 3500);
+        }
     });
     video.addEventListener('error', useFallback);
 
@@ -422,7 +444,7 @@ function initHeroMedia() {
     // Don't burn battery on a video nobody can see
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) video.pause();
-        else video.play().catch(() => {});
+        else if (!switchedToPhotos) video.play().catch(() => {});
     });
 }
 
