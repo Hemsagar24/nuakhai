@@ -417,6 +417,50 @@ function initQrPayModal() {
 }
 
 /* ==========================================================================
+   6c. Heading anchor links (copy a direct link to a section)
+   ========================================================================== */
+function initHeadingAnchors() {
+    const buttons = $$('.heading-anchor-btn[data-anchor]');
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+        const defaultIcon = btn.innerHTML;
+        let resetTimer = null;
+
+        btn.addEventListener('click', async event => {
+            event.preventDefault();
+            const url = `${location.origin}${location.pathname}#${btn.dataset.anchor}`;
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(url);
+                } else {
+                    const temp = document.createElement('textarea');
+                    temp.value = url;
+                    temp.style.position = 'fixed';
+                    temp.style.opacity = '0';
+                    document.body.appendChild(temp);
+                    temp.select();
+                    document.execCommand('copy');
+                    temp.remove();
+                }
+                history.replaceState(null, '', `#${btn.dataset.anchor}`);
+                btn.classList.add('is-copied');
+                btn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i>';
+                btn.setAttribute('aria-label', 'Link copied!');
+            } catch (err) {
+                btn.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+            }
+            clearTimeout(resetTimer);
+            resetTimer = setTimeout(() => {
+                btn.classList.remove('is-copied');
+                btn.innerHTML = defaultIcon;
+                btn.setAttribute('aria-label', 'Copy link to this section');
+            }, 2000);
+        });
+    });
+}
+
+/* ==========================================================================
    7. Navigation
    ========================================================================== */
 function initNav() {
@@ -574,6 +618,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTimeline();
     initLightbox();
     initQrPayModal();
+    initHeadingAnchors();
     initReveal();
     initVisitCounter();
 });

@@ -142,6 +142,35 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .section-title em { font-style: italic; color: var(--amber-soft); }
 
+.heading-with-anchor { display: inline-flex; align-items: baseline; gap: 0.6rem; }
+
+.heading-anchor-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 32px; height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(247, 236, 216, 0.08);
+    border: 1px solid var(--line);
+    color: var(--fg-mute);
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.18s ease, transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.heading-with-anchor:hover .heading-anchor-btn,
+.heading-anchor-btn:focus-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+.heading-anchor-btn:hover { background: rgba(242, 169, 59, 0.2); border-color: var(--amber); color: var(--amber-soft); }
+.heading-anchor-btn.is-copied { color: var(--paddy); border-color: var(--paddy); opacity: 1; transform: translateX(0); }
+
+@media (hover: none) {
+    /* Touch devices have no hover — keep the link button always visible */
+    .heading-anchor-btn { opacity: 1; transform: translateX(0); }
+}
+
 .section-sub {
     margin-top: var(--step-2);
     color: var(--fg-dim);
