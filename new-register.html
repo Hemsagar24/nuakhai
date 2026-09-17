@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — Aghria Nuakhai Bhetghat (Test)</title>
+    <meta name="description" content="On-site registration form for the Aghria Nuakhai Bhetghat — testing page, not yet linked from the main site.">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0f0b08">
+    <link rel="icon" href="samleimaa.png">
+    <link rel="stylesheet" href="styles.css?v=13">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar is-stuck">
+        <div class="nav-inner">
+            <a class="nav-brand" href="index.html">
+                <img src="samleimaa.png" alt="" class="nav-mark" width="44" height="44">
+                <span class="nav-brand-text">
+                    <span class="nav-brand-name">Aghria Nuakhai</span>
+                    <span class="nav-brand-sub">Bhetghat &middot; Bengaluru</span>
+                </span>
+            </a>
+            <nav class="nav-menu" aria-label="Main">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.html#map">Map</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="register-section">
+        <div class="container">
+            <div class="register-card">
+                <div class="section-header">
+                    <h2>Register for Nuakhai Bhetghat</h2>
+                    <p>This is a test page — not linked from the main site yet.</p>
+                </div>
+
+                <form id="registerForm" class="register-form" novalidate>
+                    <label>
+                        <span class="register-label-text">Name <span class="req">*</span></span>
+                        <input type="text" name="name" id="fName" required autocomplete="name">
+                    </label>
+
+                    <label>
+                        <span class="register-label-text">Phone Number <span class="req">*</span></span>
+                        <input type="tel" name="phone" id="fPhone" required autocomplete="tel" placeholder="10-digit mobile number">
+                    </label>
+
+                    <div class="register-form-row">
+                        <div class="register-field">
+                            <span class="register-field-label">Adults (12+ yrs)</span>
+                            <div class="custom-select" id="adultsSelect">
+                                <button type="button" class="custom-select-trigger" id="adultsTrigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Adults (12+ yrs)">
+                                    <span class="custom-select-value has-value" id="adultsTriggerText">1</span>
+                                    <i class="fas fa-chevron-down custom-select-chevron" aria-hidden="true"></i>
+                                </button>
+                                <div class="custom-select-menu custom-select-menu-compact" id="adultsMenu" hidden>
+                                    <ul class="custom-select-options" id="adultsOptions" role="listbox" aria-label="Adults (12+ yrs)">
+                                        <li role="option" data-value="1" aria-selected="true">1</li>
+                                        <li role="option" data-value="2">2</li>
+                                        <li role="option" data-value="3">3</li>
+                                        <li role="option" data-value="4">4</li>
+                                        <li role="option" data-value="5">5</li>
+                                        <li role="option" data-value="6">6</li>
+                                        <li role="option" data-value="7">7</li>
+                                        <li role="option" data-value="8">8</li>
+                                        <li role="option" data-value="9">9</li>
+                                        <li role="option" data-value="10">10</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <input type="hidden" id="fAdults" value="1">
+                        </div>
+
+                        <div class="register-field">
+                            <span class="register-field-label">Kids (6&ndash;12 yrs)</span>
+                            <div class="custom-select" id="kids6to12Select">
+                                <button type="button" class="custom-select-trigger" id="kids6to12Trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Kids (6-12 yrs)">
+                                    <span class="custom-select-value has-value" id="kids6to12TriggerText">0</span>
+                                    <i class="fas fa-chevron-down custom-select-chevron" aria-hidden="true"></i>
+                                </button>
+                                <div class="custom-select-menu custom-select-menu-compact" id="kids6to12Menu" hidden>
+                                    <ul class="custom-select-options" id="kids6to12Options" role="listbox" aria-label="Kids (6-12 yrs)">
+                                        <li role="option" data-value="0" aria-selected="true">0</li>
+                                        <li role="option" data-value="1">1</li>
+                                        <li role="option" data-value="2">2</li>
+                                        <li role="option" data-value="3">3</li>
+                                        <li role="option" data-value="4">4</li>
+                                        <li role="option" data-value="5">5</li>
+                                        <li role="option" data-value="6">6</li>
+                                        <li role="option" data-value="7">7</li>
+                                        <li role="option" data-value="8">8</li>
+                                        <li role="option" data-value="9">9</li>
+                                        <li role="option" data-value="10">10</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <input type="hidden" id="fKids6to12" value="0">
+                        </div>
+
+                        <div class="register-field">
+                            <span class="register-field-label">Kids (under 6)</span>
+                            <div class="custom-select" id="kidsUnder6Select">
+                                <button type="button" class="custom-select-trigger" id="kidsUnder6Trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Kids under 6">
+                                    <span class="custom-select-value has-value" id="kidsUnder6TriggerText">0</span>
+                                    <i class="fas fa-chevron-down custom-select-chevron" aria-hidden="true"></i>
+                                </button>
+                                <div class="custom-select-menu custom-select-menu-compact" id="kidsUnder6Menu" hidden>
+                                    <ul class="custom-select-options" id="kidsUnder6Options" role="listbox" aria-label="Kids under 6">
+                                        <li role="option" data-value="0" aria-selected="true">0</li>
+                                        <li role="option" data-value="1">1</li>
+                                        <li role="option" data-value="2">2</li>
+                                        <li role="option" data-value="3">3</li>
+                                        <li role="option" data-value="4">4</li>
+                                        <li role="option" data-value="5">5</li>
+                                        <li role="option" data-value="6">6</li>
+                                        <li role="option" data-value="7">7</li>
+                                        <li role="option" data-value="8">8</li>
+                                        <li role="option" data-value="9">9</li>
+                                        <li role="option" data-value="10">10</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <input type="hidden" id="fKidsUnder6" value="0">
+                        </div>
+                    </div>
+
+                    <div class="register-field">
+                        <span class="register-field-label">Coming From</span>
+                        <div class="custom-select" id="locationSelect">
+                            <button type="button" class="custom-select-trigger" id="locationTrigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Coming From">
+                                <span class="custom-select-value" id="locationTriggerText">Select your area&hellip;</span>
+                                <i class="fas fa-chevron-down custom-select-chevron" aria-hidden="true"></i>
+                            </button>
+                            <div class="custom-select-menu" id="locationMenu" hidden>
+                                <input type="text" class="custom-select-search" id="locationSearch" placeholder="Search area&hellip;" autocomplete="off">
+                                <ul class="custom-select-options" id="locationOptions" role="listbox" aria-label="Coming From">
+                                    <li role="option" data-value="Marathahalli">Marathahalli</li>
+                                    <li role="option" data-value="Whitefield">Whitefield</li>
+                                    <li role="option" data-value="KR Puram">KR Puram</li>
+                                    <li role="option" data-value="Hoodi">Hoodi</li>
+                                    <li role="option" data-value="Brookefield">Brookefield</li>
+                                    <li role="option" data-value="Bellandur">Bellandur</li>
+                                    <li role="option" data-value="HSR Layout">HSR Layout</li>
+                                    <li role="option" data-value="Jayanagar">Jayanagar</li>
+                                    <li role="option" data-value="JP Nagar">JP Nagar</li>
+                                    <li role="option" data-value="Banashankari">Banashankari</li>
+                                    <li role="option" data-value="Basavanagudi">Basavanagudi</li>
+                                    <li role="option" data-value="Electronic City">Electronic City</li>
+                                    <li role="option" data-value="RT Nagar">RT Nagar</li>
+                                    <li role="option" data-value="BTM Layout">BTM Layout</li>
+                                    <li role="option" data-value="Kadugodi">Kadugodi</li>
+                                    <li role="option" data-value="MG Road">MG Road</li>
+                                    <li role="option" data-value="Koramangala">Koramangala</li>
+                                    <li role="option" data-value="Indiranagar">Indiranagar</li>
+                                    <li role="option" data-value="Seegehalli">Seegehalli</li>
+                                    <li role="option" data-value="Church Street">Church Street</li>
+                                    <li role="option" data-value="Commercial Street">Commercial Street</li>
+                                    <li role="option" data-value="Cubbon Park">Cubbon Park</li>
+                                    <li role="option" data-value="Vidhana Soudha">Vidhana Soudha</li>
+                                    <li role="option" data-value="Brigade Road">Brigade Road</li>
+                                    <li role="option" data-value="UB City">UB City</li>
+                                    <li role="option" data-value="Hebbal">Hebbal</li>
+                                    <li role="option" data-value="Yelahanka">Yelahanka</li>
+                                    <li role="option" data-value="Jakkur">Jakkur</li>
+                                    <li role="option" data-value="Hennur">Hennur</li>
+                                    <li role="option" data-value="Manyata Tech Park">Manyata Tech Park</li>
+                                    <li role="option" data-value="Bannerghatta Rd">Bannerghatta Rd</li>
+                                    <li role="option" data-value="Rajajinagar">Rajajinagar</li>
+                                    <li role="option" data-value="Malleshwaram">Malleshwaram</li>
+                                    <li role="option" data-value="Vijayanagar">Vijayanagar</li>
+                                    <li role="option" data-value="Basaveshwaranagar">Basaveshwaranagar</li>
+                                    <li role="option" data-value="Nagarbhavi">Nagarbhavi</li>
+                                    <li role="option" data-value="Lalbagh Botanical Garden">Lalbagh Botanical Garden</li>
+                                    <li role="option" data-value="Ulsoor Lake">Ulsoor Lake</li>
+                                    <li role="option" data-value="Sankey Tank">Sankey Tank</li>
+                                    <li role="option" data-value="Bangalore Palace">Bangalore Palace</li>
+                                    <li role="option" data-value="ISKCON Temple">ISKCON Temple</li>
+                                    <li role="option" data-value="Nandi Hills">Nandi Hills</li>
+                                    <li role="option" data-value="Others">Others</li>
+                                </ul>
+                                <p class="custom-select-empty" id="locationEmpty" hidden>No matches — try a different search.</p>
+                            </div>
+                        </div>
+                        <input type="text" id="fLocationOther" class="register-field-other" placeholder="Please specify your area" hidden>
+                        <input type="hidden" id="fLocation">
+                    </div>
+
+                    <div class="register-field">
+                        <span class="register-field-label">How are you commuting?</span>
+                        <div class="custom-select" id="transportSelect">
+                            <button type="button" class="custom-select-trigger" id="transportTrigger" aria-haspopup="listbox" aria-expanded="false" aria-label="How are you commuting?">
+                                <span class="custom-select-value" id="transportTriggerText">Select an option&hellip;</span>
+                                <i class="fas fa-chevron-down custom-select-chevron" aria-hidden="true"></i>
+                            </button>
+                            <div class="custom-select-menu custom-select-menu-compact" id="transportMenu" hidden>
+                                <ul class="custom-select-options" id="transportOptions" role="listbox" aria-label="How are you commuting?">
+                                    <li role="option" data-value="Car">Car</li>
+                                    <li role="option" data-value="Bike">Bike</li>
+                                    <li role="option" data-value="Cab">Cab</li>
+                                    <li role="option" data-value="Sharing Car">Sharing Car</li>
+                                    <li role="option" data-value="Sharing Bike">Sharing Bike</li>
+                                    <li role="option" data-value="Nee Help">Nee Help</li>
+                                    <li role="option" data-value="Other">Other</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <input type="text" id="fTransportOther" class="register-field-other" placeholder="Please specify" hidden>
+                        <input type="hidden" id="fTransport">
+                    </div>
+
+                    <div class="register-field">
+                        <span class="register-field-label">Would like to participate in the cultural program?</span>
+                        <div class="custom-select" id="culturalSelect">
+                            <button type="button" class="custom-select-trigger" id="culturalTrigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Would like to participate in the cultural program?">
+                                <span class="custom-select-value" id="culturalTriggerText">Select options&hellip;</span>
+                                <i class="fas fa-chevron-down custom-select-chevron" aria-hidden="true"></i>
+                            </button>
+                            <div class="custom-select-menu custom-select-menu-compact" id="culturalMenu" hidden>
+                                <ul class="custom-select-options custom-select-options-multi" id="culturalOptions" role="listbox" aria-multiselectable="true" aria-label="Would like to participate in the cultural program?">
+                                    <li role="option" data-value="Singing"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Singing</span></li>
+                                    <li role="option" data-value="Dancing"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Dancing</span></li>
+                                    <li role="option" data-value="Comedy"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Comedy</span></li>
+                                    <li role="option" data-value="Anchoring"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Anchoring</span></li>
+                                    <li role="option" data-value="Acting"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Acting</span></li>
+                                    <li role="option" data-value="Backstage support"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Backstage support</span></li>
+                                    <li role="option" data-value="Others"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Others</span></li>
+                                    <li role="option" data-value="Event coordiantor"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>Event coordiantor</span></li>
+                                    <li role="option" data-value="I will be part of organiser committee"><i class="fas fa-check custom-select-option-check" aria-hidden="true"></i><span>I will be part of organiser committee</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <input type="text" id="fCulturalOther" class="register-field-other" placeholder="Please specify" hidden>
+                    </div>
+
+                    <label>
+                        Any special request or comment?
+                        <textarea name="comment" id="fComment" rows="3"></textarea>
+                    </label>
+
+                    <div class="register-amount">
+                        <span>Estimated Amount</span>
+                        <strong id="fAmountDisplay">&#8377;900</strong>
+                    </div>
+                    <p class="register-amount-note">Adult: 900/- &middot; Kids (6&ndash;12): 500/- &middot; Kids under 6: Free. Pay via the Pay Now button on the home page and mention your name.</p>
+
+                    <button type="submit" class="btn btn-primary" id="registerSubmitBtn">Submit Registration</button>
+
+                    <p class="register-status" id="registerStatus" role="status" hidden></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; <span id="footer-year">2026</span> Aghria Nuakhai Bhetghat. Made for our community.</p>
+                <p><a href="index.html">&larr; Back to the event page</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ Confirm registration modal ============ -->
+    <div class="qr-modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" hidden>
+        <div class="qr-modal-card confirm-modal-card">
+            <h3 id="confirmTitle">Confirm Registration</h3>
+            <p class="confirm-modal-text">Please double-check your details. Submit this registration?</p>
+            <div class="confirm-modal-actions">
+                <button type="button" class="btn btn-ghost" id="confirmCancelBtn">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmOkBtn">Confirm &amp; Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ Pay Now / QR modal (shown after a successful submission) ============ -->
+    <div class="qr-modal" id="qrPayModal" role="dialog" aria-modal="true" aria-labelledby="qrPayTitle" hidden>
+        <div class="qr-modal-card">
+            <button class="qr-modal-close" id="qrPayClose" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <h3 id="qrPayTitle">Scan to Pay</h3>
+            <ul class="qr-pricing">
+                <li><span class="qr-price-tag">&#127991;&#65039; Adult</span><span class="qr-price-amount">&#8377;900/-</span><span class="qr-price-note"></span></li>
+                <li><span class="qr-price-tag">&#127991;&#65039; Kids</span><span class="qr-price-amount">&#8377;500/-</span><span class="qr-price-note">(6 &ndash; 12 yrs)</span></li>
+            </ul>
+            <img src="images/qr-pay.jpg" alt="QR code for event contribution payment" loading="lazy">
+            <p class="qr-modal-note">Thank you for registering! Scan with any UPI app to complete your payment.</p>
+            <div class="qr-upi">
+                <span class="qr-upi-id" id="qrUpiId">7008132194-4@ibl</span>
+                <button class="btn btn-primary qr-copy-btn" type="button" id="qrCopyBtn">
+                    <i class="fa-regular fa-copy" aria-hidden="true"></i> Copy UPI ID
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+    <script src="new-register.js?v=5"></script>
+</body>
+</html>
