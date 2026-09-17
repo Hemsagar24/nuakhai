@@ -23,9 +23,9 @@ const EVENT = {
        For reference, 2025 was at: Backyard by FHC, Budigere Cross, Bengaluru
        — https://maps.app.goo.gl/KQAdKDqnDHQ5Ctdg9 */
     venue: {
-        name: 'Venue to be announced',
+        name: 'Bagini, Hoodi',
         area: 'Bengaluru',
-        mapsUrl: ''
+        mapsUrl: 'https://maps.app.goo.gl/G4Es5rcgj2FGGqc27'
     },
 
     /* 2026 registration form.
