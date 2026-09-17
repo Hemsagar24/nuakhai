@@ -954,6 +954,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .qr-modal-note { font-size: 0.9rem; color: var(--fg-mute); }
 
+.qr-pricing {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: baseline;
+    column-gap: 0.6rem;
+    row-gap: 0.45rem;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    background: rgba(247, 236, 216, 0.06);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    font-size: 0.95rem;
+}
+.qr-pricing li { display: contents; }
+.qr-price-tag { font-weight: 600; color: var(--fg); text-align: left; }
+.qr-price-amount { font-weight: 700; color: var(--amber-soft); text-align: left; }
+.qr-price-note { color: var(--fg-mute); font-size: 0.85rem; text-align: left; }
+
 .qr-upi {
     display: flex;
     flex-direction: column;
