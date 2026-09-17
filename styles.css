@@ -582,6 +582,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     font-size: 0.85rem;
 }
 
+/* ---------- Participant map (full width, on the homepage) ---------- */
+.map-section { padding: 0 0 var(--step-6); }
+
 /* ---------- Details cards ---------- */
 .details { padding: var(--step-6) 0; }
 
@@ -1208,4 +1211,84 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     .footer-grid { grid-template-columns: 1fr; }
     .footer-bottom { justify-content: center; text-align: center; }
     .table-controls input { min-width: 0; flex: 1; }
+}
+
+/* ==========================================================================
+   Participant map (map.html)
+   ========================================================================== */
+.map-status {
+    margin: -0.5rem 0 var(--step-3);
+    font-size: 0.88rem;
+    color: var(--fg-mute);
+}
+
+.map-canvas {
+    width: 100%;
+    height: 480px;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--line);
+    margin-bottom: var(--step-4);
+    background: var(--ink-800); /* shows while Leaflet/tiles are loading */
+}
+/* Leaflet injects its own inline-styled panes; keep them inside our rounded corners */
+.map-canvas.leaflet-container { font-family: var(--font-body); background: var(--ink-800); }
+
+.map-table { margin-top: var(--step-2); }
+
+/* Marker: a round badge showing the participant count, styled to match the
+   site's amber/terra accents instead of Leaflet's default blue pin. */
+.map-count-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(150deg, #6fb3c7, #1f5f75);
+    border: 2px solid var(--cream);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    color: #eaf6fa;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+/* Small permanent label under each marker showing the place name */
+.map-place-label {
+    background: rgba(20, 14, 9, 0.85) !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--fg-dim);
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 1px 6px !important;
+    border-radius: var(--r-pill);
+    white-space: nowrap;
+}
+.map-place-label::before { display: none; } /* hide Leaflet's default tooltip arrow */
+
+.leaflet-popup-content-wrapper {
+    background: var(--ink-700);
+    color: var(--fg);
+    border-radius: var(--r-md);
+}
+.leaflet-popup-content { font-family: var(--font-body); font-size: 0.9rem; line-height: 1.5; }
+.popup-names {
+    margin: 0.5rem 0 0;
+    padding-top: 0.4rem;
+    padding-left: 1.1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+    color: var(--fg-dim);
+    max-height: 120px;
+    overflow-y: auto;
+}
+.leaflet-popup-tip { background: var(--ink-700); }
+.leaflet-popup-close-button { color: var(--fg-mute) !important; }
+
+@media (max-width: 640px) {
+    .map-canvas { height: 360px; }
 }

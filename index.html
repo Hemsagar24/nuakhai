@@ -25,7 +25,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2">
+    <!-- Leaflet (free, no API key, no billing) — powers the participant map below.
+         Loaded BEFORE styles.css on purpose: our overrides of Leaflet's own
+         classes (.leaflet-popup-*, etc.) need to come later in the cascade
+         to win ties, otherwise Leaflet's defaults (e.g. white popups) win. -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -47,9 +53,9 @@
 
             <nav class="nav-menu" id="navMenu" aria-label="Main">
                 <a class="nav-link" href="#nuakhai">Nuakhai</a>
-                <a class="nav-link" href="#details">Details</a>
+                <a class="nav-link" href="#map">Map</a>
                 <a class="nav-link" href="#memories">Memories</a>
-                <a class="nav-link" href="#contact">Contact</a>
+                <a class="nav-link" href="#details">Details</a>
                 <a class="nav-link nav-link-cta" href="#" data-register-link>Register</a>
             </nav>
         </div>
@@ -126,7 +132,7 @@
         <section class="about" id="nuakhai">
             <div class="container about-grid">
                 <figure class="about-figure reveal">
-                    <img src="images/dhan.jpg" alt="Ripening paddy, the new rice that Nuakhai is named for" loading="lazy" decoding="async">
+                    <img src="images/dhan.jpg" alt="Aghria Nuakhai Bhetghat emblem — dancers, wheat, and the festival name in Odia" loading="lazy" decoding="async">
                     <figcaption>Nua &middot; new &nbsp;|&nbsp; Khai &middot; food</figcaption>
                 </figure>
 
@@ -155,7 +161,36 @@
             </div>
         </section>
 
+        <!-- ============ Participant map ============ -->
+        <section class="map-section" id="map">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="section-eyebrow">Since registrations opened</p>
+                    <h2 class="section-title">Where Families Are Coming From</h2>
+                    <p class="section-sub">Live map of the 2026 registrations, grouped by neighbourhood.</p>
+                </div>
+                <p class="map-status" id="mapStatus">Loading registration map…</p>
+                <div id="bengaluruMap" class="map-canvas" aria-label="Map of Bengaluru showing where registered families are coming from"></div>
+            </div>
+        </section>
+
         <!-- ============ Details ============ -->
+        <!-- ============ Memories / timeline ============ -->
+        <section class="memories" id="memories">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="section-eyebrow">Since 2019</p>
+                    <h2 class="section-title">Bhetghat, year by year</h2>
+                    <p class="section-sub">Tap any photo to open the gallery for that year.</p>
+                </div>
+
+                <ol class="timeline" id="timeline">
+                    <!-- rendered by script.js from EVENT_HISTORY -->
+                </ol>
+            </div>
+        </section>
+
+        <!-- ============ Details (moved last) ============ -->
         <section class="details" id="details">
             <div class="container">
                 <div class="section-head reveal">
@@ -191,54 +226,6 @@
                         <p>The live registration list, updated straight from the organisers' sheet.</p>
                         <a class="card-link" href="registrations.html">View registrations <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                     </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ Memories / timeline ============ -->
-        <section class="memories" id="memories">
-            <div class="container">
-                <div class="section-head reveal">
-                    <p class="section-eyebrow">Since 2019</p>
-                    <h2 class="section-title">Bhetghat, year by year</h2>
-                    <p class="section-sub">Tap any photo to open the gallery for that year.</p>
-                </div>
-
-                <ol class="timeline" id="timeline">
-                    <!-- rendered by script.js from EVENT_HISTORY -->
-                </ol>
-            </div>
-        </section>
-
-        <!-- ============ Contact ============ -->
-        <section class="contact" id="contact">
-            <div class="container">
-                <div class="section-head reveal">
-                    <p class="section-eyebrow">Questions</p>
-                    <h2 class="section-title">Talk to the organisers</h2>
-                    <p class="section-sub">Anything about registration, travel, or performing on the day.</p>
-                </div>
-
-                <div class="contact-panel reveal">
-                    <p class="contact-lead">
-                        Reach the organising team and we'll get back to you. If you'd like to
-                        volunteer or sponsor part of the day, mention that too.
-                    </p>
-                    <div class="contact-actions">
-                        <a class="btn btn-primary" href="#" data-register-link>
-                            <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
-                            <span data-register-label>Register Now</span>
-                        </a>
-                        <a class="btn btn-ghost" href="registrations.html">
-                            <i class="fa-solid fa-table-list" aria-hidden="true"></i> Registration list
-                        </a>
-                    </div>
-                    <!--
-                      TODO organisers: add real contact rows here, e.g.
-                      <a href="tel:+91XXXXXXXXXX">+91 XXXXX XXXXX</a>
-                      <a href="mailto:you@example.com">you@example.com</a>
-                      <a href="https://chat.whatsapp.com/...">Community WhatsApp group</a>
-                    -->
                 </div>
             </div>
         </section>
@@ -292,5 +279,10 @@
     </div>
 
     <script src="script.js?v=3"></script>
+
+    <!-- Leaflet JS (free, no API key, no billing) — powers the participant map above -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="map.js?v=10"></script>
 </body>
 </html>

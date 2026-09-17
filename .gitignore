@@ -13,3 +13,6 @@ node_modules/
 # e.g. videos/2026-dance.gif is 179MB; the compressed videos/*.mp4 built from
 # it are what's actually tracked and shipped)
 videos/*.gif
+
+# Optional Google Maps API key config (see map.js header for setup) — never commit a real key
+map-config.js
