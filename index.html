@@ -120,6 +120,9 @@
                     <a class="btn btn-ghost" href="#" data-directions-link>
                         <i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i> Get Directions
                     </a>
+                    <button class="btn btn-ghost" type="button" id="payNowBtn" aria-haspopup="dialog" aria-controls="qrPayModal">
+                        <i class="fa-solid fa-qrcode" aria-hidden="true"></i> Pay Now
+                    </button>
                 </div>
             </div>
 
@@ -282,6 +285,22 @@
             <figcaption id="lbCaption"></figcaption>
         </figure>
         <button class="lb-nav lb-next" id="lbNext" aria-label="Next photo"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+    </div>
+
+    <!-- ============ Pay Now / QR modal ============ -->
+    <div class="qr-modal" id="qrPayModal" role="dialog" aria-modal="true" aria-labelledby="qrPayTitle" hidden>
+        <div class="qr-modal-card">
+            <button class="qr-modal-close" id="qrPayClose" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <h3 id="qrPayTitle">Scan to Pay</h3>
+            <img src="images/qr-pay.jpg" alt="QR code for event contribution payment" loading="lazy">
+            <p class="qr-modal-note">Scan with any UPI app to contribute.</p>
+            <div class="qr-upi">
+                <span class="qr-upi-id" id="qrUpiId">7008132194-4@ibl</span>
+                <button class="btn btn-primary qr-copy-btn" type="button" id="qrCopyBtn">
+                    <i class="fa-regular fa-copy" aria-hidden="true"></i> Copy UPI ID
+                </button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js?v=4"></script>

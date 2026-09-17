@@ -348,6 +348,75 @@ function initLightbox() {
 }
 
 /* ==========================================================================
+   6b. Pay Now / QR modal
+   ========================================================================== */
+function initQrPayModal() {
+    const box = $('#qrPayModal');
+    const openBtn = $('#payNowBtn');
+    const closeBtn = $('#qrPayClose');
+    if (!box || !openBtn) return;
+
+    let lastFocused = null;
+
+    const open = () => {
+        lastFocused = document.activeElement;
+        box.hidden = false;
+        void box.offsetHeight; // force a reflow so the opacity transition runs
+        box.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        if (closeBtn) closeBtn.focus();
+    };
+
+    const close = () => {
+        box.classList.remove('is-open');
+        const finish = () => { box.hidden = true; };
+        prefersReducedMotion ? finish() : setTimeout(finish, 250);
+        document.body.style.overflow = '';
+        if (lastFocused && lastFocused.focus) lastFocused.focus();
+    };
+
+    openBtn.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    box.addEventListener('click', event => { if (event.target === box) close(); });
+    document.addEventListener('keydown', event => {
+        if (box.hidden) return;
+        if (event.key === 'Escape') close();
+    });
+
+    // Copy UPI ID
+    const copyBtn = $('#qrCopyBtn');
+    const upiId = $('#qrUpiId');
+    if (copyBtn && upiId) {
+        let resetTimer = null;
+        copyBtn.addEventListener('click', async () => {
+            const id = upiId.textContent.trim();
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(id);
+                } else {
+                    const range = document.createRange();
+                    range.selectNodeContents(upiId);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    document.execCommand('copy');
+                    selection.removeAllRanges();
+                }
+                copyBtn.classList.add('is-copied');
+                copyBtn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Copied!';
+            } catch (err) {
+                copyBtn.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i> Couldn\'t copy';
+            }
+            clearTimeout(resetTimer);
+            resetTimer = setTimeout(() => {
+                copyBtn.classList.remove('is-copied');
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i> Copy UPI ID';
+            }, 2000);
+        });
+    }
+}
+
+/* ==========================================================================
    7. Navigation
    ========================================================================== */
 function initNav() {
@@ -504,6 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCountdown();
     renderTimeline();
     initLightbox();
+    initQrPayModal();
     initReveal();
     initVisitCounter();
 });
