@@ -1637,6 +1637,20 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .register-status.is-success { color: var(--paddy); background: rgba(143, 174, 91, 0.12); }
 .register-status.is-error { color: var(--terra); background: rgba(221, 85, 41, 0.12); }
 
+.register-progress {
+    height: 6px;
+    border-radius: var(--r-pill);
+    background: rgba(154, 118, 60, 0.15);
+    overflow: hidden;
+}
+.register-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--amber-soft), var(--paddy));
+    border-radius: var(--r-pill);
+    transition: width 0.4s ease;
+}
+
 /* ---------- Confirm registration modal ---------- */
 .confirm-modal-card { align-items: stretch; text-align: center; }
 .confirm-modal-text { color: var(--fg-dim); font-size: 0.95rem; }

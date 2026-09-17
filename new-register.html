@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register — Aghria Nuakhai Bhetghat (Test)</title>
+    <title>Register — Aghria Nuakhai Bhetghat</title>
     <meta name="description" content="On-site registration form for the Aghria Nuakhai Bhetghat — testing page, not yet linked from the main site.">
     <meta name="robots" content="noindex">
     <meta name="theme-color" content="#0f0b08">
     <link rel="icon" href="samleimaa.png">
-    <link rel="stylesheet" href="styles.css?v=13">
+    <link rel="stylesheet" href="styles.css?v=14">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -36,18 +36,17 @@
             <div class="register-card">
                 <div class="section-header">
                     <h2>Register for Nuakhai Bhetghat</h2>
-                    <p>This is a test page — not linked from the main site yet.</p>
                 </div>
 
                 <form id="registerForm" class="register-form" novalidate>
                     <label>
                         <span class="register-label-text">Name <span class="req">*</span></span>
-                        <input type="text" name="name" id="fName" required autocomplete="name">
+                        <input type="text" name="name" id="fName" required autocomplete="name" pattern="[^0-9]*" title="Name cannot contain numbers">
                     </label>
 
                     <label>
                         <span class="register-label-text">Phone Number <span class="req">*</span></span>
-                        <input type="tel" name="phone" id="fPhone" required autocomplete="tel" placeholder="10-digit mobile number">
+                        <input type="tel" name="phone" id="fPhone" required autocomplete="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Phone number must be exactly 10 digits" placeholder="10-digit mobile number">
                     </label>
 
                     <div class="register-form-row">
@@ -250,6 +249,10 @@
 
                     <button type="submit" class="btn btn-primary" id="registerSubmitBtn">Submit Registration</button>
 
+                    <div class="register-progress" id="registerProgress" hidden>
+                        <div class="register-progress-bar" id="registerProgressBar"></div>
+                    </div>
+
                     <p class="register-status" id="registerStatus" role="status" hidden></p>
                 </form>
             </div>
@@ -298,6 +301,6 @@
     </div>
 
     <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
-    <script src="new-register.js?v=5"></script>
+    <script src="new-register.js?v=7"></script>
 </body>
 </html>

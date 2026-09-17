@@ -37,6 +37,19 @@ function setStatus(message, kind) {
     el.className = 'register-status' + (kind ? ` is-${kind}` : '');
 }
 
+// percent === null hides the bar; otherwise shows it at that fill level.
+function setProgress(percent) {
+    const wrap = $('#registerProgress');
+    const bar = $('#registerProgressBar');
+    if (percent === null) {
+        wrap.hidden = true;
+        bar.style.width = '0%';
+        return;
+    }
+    wrap.hidden = false;
+    bar.style.width = `${Math.max(0, Math.min(100, percent))}%`;
+}
+
 /* ---------- Verify a submission actually landed in the Sheet ---------- */
 // Queries only the Name + Phone columns (B, C) for an exact phone match,
 // via Google's gviz query API — far lighter/faster than downloading the
@@ -388,6 +401,7 @@ function initRegisterForm() {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting…';
         setStatus('', null);
+        setProgress(10);
 
         // Fire the POST, but don't trust its response alone — Apps Script's
         // reply can be flaky (HTML error page, network drop) even when the
@@ -405,16 +419,20 @@ function initRegisterForm() {
         }
 
         submitBtn.textContent = 'Verifying…';
+        setProgress(20);
 
+        const maxAttempts = 4;
         let confirmed = false;
-        for (let attempt = 0; attempt < 4 && !confirmed; attempt++) {
+        for (let attempt = 0; attempt < maxAttempts && !confirmed; attempt++) {
             if (attempt > 0) await new Promise(r => setTimeout(r, 1500));
             try {
                 confirmed = await isRegisteredInSheet(name, phone);
             } catch (err) {
                 // Try again on the next attempt.
             }
+            setProgress(20 + (attempt + 1) * (80 / maxAttempts));
         }
+        setProgress(null);
 
         if (confirmed) {
             setStatus('Thank you! Your registration has been recorded.', 'success');
@@ -442,6 +460,18 @@ function initRegisterForm() {
         const phone = $('#fPhone').value.trim();
         if (!name || !phone) {
             setStatus('Please fill in your name and phone number.', 'error');
+            return;
+        }
+        if (/\d/.test(name)) {
+            setStatus('Name cannot contain numbers.', 'error');
+            return;
+        }
+        if (!/^\d+$/.test(phone)) {
+            setStatus('Phone number cannot contain letters or symbols — digits only.', 'error');
+            return;
+        }
+        if (phone.length !== 10) {
+            setStatus('Phone number must be exactly 10 digits.', 'error');
             return;
         }
 
